@@ -37,7 +37,7 @@ On Terminal, run `dotnet --version` to check the .NET version.
    app.UseStaticFiles();
    ```
    
-3. Press <kbd>F5</kbd> (debug), at the top-center, where it prompts for **Select Environment** select **.NET Core**. A `.vscode` folder is created with `launch.json` and `task.json`. Press <kbd>F5</kbd> again, the app should run at `https://localhost:3000/api/values` (**Values** is the default controller on webapi projects template)
+3. Press <kbd>F5</kbd> (debug), the application should compile and open the browser. If the debugger is not set, at the top-center, where it prompts for **Select Environment** select **.NET Core**. A `.vscode` folder is created with `launch.json` and `task.json`. Press <kbd>F5</kbd> again, the app should run at `https://localhost:3000/api/values` (**Values** is the default controller on webapi projects template)
 
 ## Create a Heroku app
 
@@ -45,11 +45,13 @@ Requires [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
 
 Using the Integrated Terminal, run:
 
+> It may be required to stop debugging to unlock the terminal, press <kbd>Ctrl</kbd> + <kbd>C</kbd>
+
 1. `heroku login`
 2. Create app using [.NET Code Buildpack](https://elements.heroku.com/buildpacks/jincod/dotnetcore-buildpack) (there are many options of buildpack, this was one choice): 
 
    `heroku create ForgeSampleAppName --buildpack https://github.com/jincod/dotnetcore-buildpack.git`
-3. Go to [Heroku Dashboard](https://dashboard.heroku.com/apps) and select the newly create app. Under **Deploy** >> **Connect to GitHub**, connect to the github repo and **Enable Automatic Deploys**. 
+3. Go to [Heroku Dashboard](https://dashboard.heroku.com/apps) and select the newly create app. Under **Deploy** menu, go to **Deployment method** and select **Connect to Github**. Next, go to **Connect to Github** and search the respective repository and click **Connect**. Next, go to **Automatic deploys** and and **Enable Automatic Deploys** for the brach (e.g. `master`). 
 4. Go to the app **Settings** (on [Heroku Dashboard](https://dashboard.heroku.com/apps)), under **Config Vars** click on **Reveal Config Vars** and add your **FORGE\_CLIENT\_ID**, **FORGE\_CLIENT\_SECRET** and **FORGE\_CALLBACK\_URL** (if 3-legged).
 
 ## Commit & Push
@@ -67,7 +69,7 @@ Prepare this project to use Forge:
 
 1. On the Integrated Terminal, run `dotnet add ForgeSample package Autodesk.Forge`
 
-   Confirm that under ForgeSample.csproj the newly added line `<PackageReference Include="Autodesk.Forge" Version="1.2.0" />` (the actual varion may be higher)
+   A popup should appear asking to **Restore**, which downloads the newly added package. Confirm that under ForgeSample.csproj the newly added line `<PackageReference Include="Autodesk.Forge" Version="1.2.0" />` (the actual varion may be higher)
 
 2. Under **.vscode** folder, open **launch.json**, search for `ASPNETCORE_ENVIRONMENT` env var and add the Forge variables, as shown below:
 
@@ -75,7 +77,7 @@ Prepare this project to use Forge:
 "env": {
     "ASPNETCORE_ENVIRONMENT": "Development",
     "FORGE_CLIENT_ID": "your client id here",
-    "FORGE_CLIENT_SECRET": "your client secret here"
+    "FORGE_CLIENT_SECRET": "your client secret here",
     "FORGE_CALLBACK_URL": "http://localhost:3000/api/forge/callback/oauth"
 }
 ```
