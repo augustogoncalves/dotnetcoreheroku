@@ -23,3 +23,9 @@ Using **Visual Studio Code** Integrated Terminal, run:
 2. Commit & Push to github
 
 ## Create a Heroku app
+
+Requires [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). 
+
+1. Using the Integrated Terminal, run `heroku login`
+2. Create app using .NET Code Buildpack: `heroku create ForgeSampleAppName --buildpack https://github.com/jincod/dotnetcore-buildpack.git`
+3. Go to [Heroku Dashboard](https://dashboard.heroku.com/apps) and select the newly create app. Under **Deploy** >> **Connect to GitHub**, connect to the github repo and **Enable Automatic Deploys**.
