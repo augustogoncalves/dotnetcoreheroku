@@ -45,7 +45,7 @@ Requires [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
 2. Create app using [.NET Code Buildpack](https://elements.heroku.com/buildpacks/jincod/dotnetcore-buildpack): `heroku create ForgeSampleAppName --buildpack https://github.com/jincod/dotnetcore-buildpack.git`
 There are many options of buildpack, this was one choice.
 3. Go to [Heroku Dashboard](https://dashboard.heroku.com/apps) and select the newly create app. Under **Deploy** >> **Connect to GitHub**, connect to the github repo and **Enable Automatic Deploys**. 
-4. Go to the app **Settings** (on [Heroku Dashboard](https://dashboard.heroku.com/apps)), under **Config Vars** click on **Reveal Config Vars** and add your **FORGE\_CLIENT\_ID**, **FORGE\_CLIENT\_SECRET** and **FORGE_CALLBACK_URL** (if 3-legged).
+4. Go to the app **Settings** (on [Heroku Dashboard](https://dashboard.heroku.com/apps)), under **Config Vars** click on **Reveal Config Vars** and add your **FORGE\_CLIENT\_ID**, **FORGE\_CLIENT\_SECRET** and **FORGE\_CALLBACK\_URL** (if 3-legged).
 
 ## Commit & Push
 
@@ -73,4 +73,4 @@ Prepare this project to use Forge:
 }
 ```
 
-Now the project is ready for Forge! See [Controllers/OAuthController.cs](blob/master/ForgeSample/Controllers/OAuthController.cs) for an example (2-legged token).
+Now the project is ready for Forge! See [Controllers/OAuthController.cs](ForgeSample/Controllers/OAuthController.cs) for an example (2-legged token).
