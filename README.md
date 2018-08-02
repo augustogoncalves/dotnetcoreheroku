@@ -82,4 +82,13 @@ Prepare this project to use Forge:
 }
 ```
 
-Now the project is ready for Forge! See [Controllers/OAuthController.cs](ForgeSample/Controllers/OAuthController.cs) for an example (2-legged token). With this controller, the `/api/forge/oauth/token` should also work (localhost and live on Heroku).
+Now the project is ready for Forge! See [Controllers/OAuthController.cs](ForgeSample/Controllers/OAuthController.cs) for an example (2-legged token). With this controller, the `/api/forge/oauth/token` should also work (localhost and live on Heroku). Static files should be placed on `wwwroot` folder.
+
+## License
+
+This sample is licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+Please see the [LICENSE](LICENSE) file for full details.
+
+## Written by
+
+Augusto Goncalves [@augustomaia](https://twitter.com/augustomaia), [Forge Partner Development](http://forge.autodesk.com)
