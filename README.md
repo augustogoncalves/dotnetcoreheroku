@@ -1,25 +1,27 @@
-# .NET Core on Heroku
+# .NET Core on Heroku (auto-deploy from Github)
+
+This is a step-by-step to setup a .NET Core (2.0+) app using Visual Studio Code (non-Windows environment), and how to control code with Github and auto-deploy to Heroku. 
 
 ## Prerequirements
 
 1. [.NET Core & SDK](https://www.microsoft.com/net/download) version 2.0+
-2. Visual Studio Code 
+2. [Visual Studio Code](https://code.visualstudio.com/)
 3. [C# Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) for Visual Studio Code
 
-On Terminal, check with `dotnet --version`
+On Terminal, run `dotnet --version` to check the .NET version. 
 
 ## Create repo
 
-1. Create Github repo, select `.gitignore` for `Visual Studio`
+1. Create a [new Github repo](https://github.com/augustogoncalves?tab=repositories), add `.gitignore` for `Visual Studio`
 2. Clone repo locally
-3. Open with **Visual Code**
+3. Open with **Visual Studio Code**
 
 ## Create .NET Core Webapi
 
-Using **Visual Studio Code** Integrated Terminal, run:
 
-1. Create new solution: `dotnet new webapi -n ForgeSample`
-2. As a standard, adjust the port number under `Program.cs:Main()`, replace the function content with: 
+
+1. Using **Visual Studio Code** Integrated Terminal, run `dotnet new webapi -n ForgeSample` to create a new project.
+2. As a standard on Forge samples, adjust the port number under `Program.cs:Main()`, replace the function content with: 
 
    ```csharp
    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
@@ -28,7 +30,7 @@ Using **Visual Studio Code** Integrated Terminal, run:
       CreateWebHostBuilder(args).Build().Run();
 	```
   
-3. Add support for static files, under `Startup.cs:Configure()`, add the following:
+3. Add support for static files, like `.html`, `.js` and `.css`. Under `Startup.cs:Configure()`, add the following ([see sample](ForgeSample/Startup.cs)):
 
    ```csharp
    app.UseDefaultFiles();
@@ -41,18 +43,23 @@ Using **Visual Studio Code** Integrated Terminal, run:
 
 Requires [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). 
 
-1. Using the Integrated Terminal, run `heroku login`
-2. Create app using [.NET Code Buildpack](https://elements.heroku.com/buildpacks/jincod/dotnetcore-buildpack): `heroku create ForgeSampleAppName --buildpack https://github.com/jincod/dotnetcore-buildpack.git`
-There are many options of buildpack, this was one choice.
+Using the Integrated Terminal, run:
+
+1. `heroku login`
+2. Create app using [.NET Code Buildpack](https://elements.heroku.com/buildpacks/jincod/dotnetcore-buildpack) (there are many options of buildpack, this was one choice): 
+
+   `heroku create ForgeSampleAppName --buildpack https://github.com/jincod/dotnetcore-buildpack.git`
 3. Go to [Heroku Dashboard](https://dashboard.heroku.com/apps) and select the newly create app. Under **Deploy** >> **Connect to GitHub**, connect to the github repo and **Enable Automatic Deploys**. 
 4. Go to the app **Settings** (on [Heroku Dashboard](https://dashboard.heroku.com/apps)), under **Config Vars** click on **Reveal Config Vars** and add your **FORGE\_CLIENT\_ID**, **FORGE\_CLIENT\_SECRET** and **FORGE\_CALLBACK\_URL** (if 3-legged).
 
 ## Commit & Push
 
-Now all news commits to the selected branch will automatically deploy to the Heroku app.
+As the Github repo is connected to Heroku, all new commits to the selected branch will automatically deploy to the Heroku app.
 
-1. Add `.vscode` folder to `.gitignore`
-2. Commit & Push to github
+1. As `launch.json` contains the ID/Secret, add `.vscode` folder to `.gitignore`
+2. Commit & Push to Github
+
+At the Heroku dashboard, for this app, see **Logs**, it should say: _Build started by username_, then _Build succeeded_. Now the app should live, try the same **Values** endpoint.
 
 ## Add Autodesk.Forge package
 
@@ -73,4 +80,4 @@ Prepare this project to use Forge:
 }
 ```
 
-Now the project is ready for Forge! See [Controllers/OAuthController.cs](ForgeSample/Controllers/OAuthController.cs) for an example (2-legged token).
+Now the project is ready for Forge! See [Controllers/OAuthController.cs](ForgeSample/Controllers/OAuthController.cs) for an example (2-legged token). With this controller, the `/api/forge/oauth/token` should also work (localhost and live on Heroku).
