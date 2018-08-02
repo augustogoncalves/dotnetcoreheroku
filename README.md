@@ -19,9 +19,22 @@ On Terminal, check with `dotnet --version`
 Using **Visual Studio Code** Integrated Terminal, run:
 
 1. Create new solution: `dotnet new webapi -n ForgeSample`
-2. As a standard, adjust the port number under `Program.cs:Main()`, replace the following line: 
+2. As a standard, adjust the port number under `Program.cs:Main()`, replace the function content with: 
 
-  `CreateWebHostBuilder(args).UseUrls("http://localhost:3000/").Build().Run();` (note how it just adds `UseUrls` 
+   ```csharp
+   if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+      CreateWebHostBuilder(args).UseUrls("http://localhost:3000/").Build().Run();
+   else
+      CreateWebHostBuilder(args).Build().Run();
+	```
+  
+3. Add support for static files, under `Startup.cs:Configure()`, add the following:
+
+   ```csharp
+   app.UseDefaultFiles();
+   app.UseStaticFiles();
+   ```
+   
 3. Press <kbd>F5</kbd> (debug), at the top-center, where it prompts for **Select Environment** select **.NET Core**. A `.vscode` folder is created with `launch.json` and `task.json`. Press <kbd>F5</kbd> again, the app should run at `https://localhost:3000/api/values` (**Values** is the default controller on webapi projects template)
 
 ## Create a Heroku app

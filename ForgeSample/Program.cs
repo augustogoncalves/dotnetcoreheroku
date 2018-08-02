@@ -14,7 +14,10 @@ namespace ForgeSample
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).UseUrls("http://localhost:3000/").Build().Run();
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                CreateWebHostBuilder(args).UseUrls("http://localhost:3000/").Build().Run();
+            else
+                CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
