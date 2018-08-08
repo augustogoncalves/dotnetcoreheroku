@@ -84,6 +84,57 @@ Prepare this project to use Forge:
 
 Now the project is ready for Forge! See [Controllers/OAuthController.cs](ForgeSample/Controllers/OAuthController.cs) for an example (2-legged token). With this controller, the `/api/forge/oauth/token` should also work (localhost and live on Heroku). Static files should be placed on `wwwroot` folder.
 
+## Tips & Tricks
+
+### Console output
+
+If you want to reduce the output, here are a few tips:
+
+1. To ignore messages when modules are loading, open `launch.json` and add (under `configurations`):
+
+```json
+"logging":{
+  "moduleLoad": false  
+},
+```
+
+2. Change the logging level to `error` at the `appsettings.development.json`:
+
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Error",
+      "Microsoft": "Error"
+    }
+  }
+}
+```
+
+### dotnet process consuming 100% of CPU 
+
+Follow [this workaround](https://github.com/dotnet/roslyn/issues/24137#issuecomment-388494024). In summary, create the file `~/Library/LaunchAgents/UseSharedCompilation.plist` with the following content:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>UseSharedCompilation</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>sh</string>
+    <string>-c</string>
+    <string>launchctl setenv UseSharedCompilation false</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+</dict>
+</plist>
+```
+
 ## License
 
 This sample is licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
