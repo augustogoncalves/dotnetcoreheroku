@@ -1,6 +1,8 @@
 # .NET Core on Heroku (auto-deploy from Github)
 
-This is a step-by-step to setup a .NET Core (2.0+) app using Visual Studio Code (non-Windows environment), and how to control code with Github and auto-deploy to Heroku. 
+This is a step-by-step to setup a .NET Core (2.0+) app using Visual Studio Code (non-Windows environment, e.g. MacOS), and how to control code with Github and auto-deploy to Heroku. 
+
+Found anything wrong or that can be improved? Please contribute! 
 
 ## Prerequirements
 
@@ -17,8 +19,6 @@ On Terminal, run `dotnet --version` to check the .NET version.
 3. Open with **Visual Studio Code**
 
 ## Create .NET Core Webapi
-
-
 
 1. Using **Visual Studio Code** Integrated Terminal, run `dotnet new webapi -n ForgeSample` to create a new project.
 2. As a standard on Forge samples, adjust the port number under `Program.cs:Main()`, replace the function content with: 
@@ -54,9 +54,9 @@ Using the Integrated Terminal, run:
 3. Go to [Heroku Dashboard](https://dashboard.heroku.com/apps) and select the newly create app. Under **Deploy** menu, go to **Deployment method** and select **Connect to Github**. Next, go to **Connect to Github** and search the respective repository and click **Connect**. Next, go to **Automatic deploys** and and **Enable Automatic Deploys** for the brach (e.g. `master`). 
 4. Go to the app **Settings** (on [Heroku Dashboard](https://dashboard.heroku.com/apps)), under **Config Vars** click on **Reveal Config Vars** and add your **FORGE\_CLIENT\_ID**, **FORGE\_CLIENT\_SECRET** and **FORGE\_CALLBACK\_URL** (if 3-legged).
 
-## Commit & Push
+## Commit & Push to Github
 
-As the Github repo is connected to Heroku, all new commits to the selected branch will automatically deploy to the Heroku app.
+As the Github repo is connected to Heroku, all new commits to the selected branch will automatically deployed to the Heroku app.
 
 1. As `launch.json` contains the ID/Secret, add `.vscode` folder to `.gitignore`
 2. Commit & Push to Github
