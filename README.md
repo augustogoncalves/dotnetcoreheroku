@@ -86,6 +86,17 @@ Now the project is ready for Forge! See [Controllers/OAuthController.cs](ForgeSa
 
 ## Tips & Tricks
 
+### Open browser (or new tab) on debug
+
+This is a personal choice, I prefer to NOT open a new browser/tab when start debugging, this can be disabled under `launch.json`, change to `false`. You can start debugging with <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>F5</kbd>.
+
+```
+"launchBrowser": {
+    "enabled": false,
+    ...
+}
+```
+
 ### Console output
 
 If you want to reduce the output, here are a few tips:
