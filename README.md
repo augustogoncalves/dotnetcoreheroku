@@ -21,13 +21,13 @@ On Terminal, run `dotnet --version` to check the .NET version.
 ## Create .NET Core Webapi
 
 1. Using **Visual Studio Code** Integrated Terminal, run `dotnet new webapi -n ForgeSample` to create a new project.
-2. As a standard on Forge samples, adjust the port number under `Program.cs:Main()`, replace the function content with: 
+2. As a standard on Forge samples, adjust the port number `3000`. Under `.vscode\launch.json` file, add `ASPNETCORE_URLS`:
 
-   ```csharp
-   if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-      CreateWebHostBuilder(args).UseUrls("http://localhost:3000/").Build().Run();
-   else
-      CreateWebHostBuilder(args).Build().Run();
+   ```json
+	"env": {
+	    "ASPNETCORE_ENVIRONMENT": "Development",
+	    "ASPNETCORE_URLS" : "http://localhost:3000",
+	},
 	```
   
 3. Add support for static files, like `.html`, `.js` and `.css`. Under `Startup.cs:Configure()`, add the following ([see sample](ForgeSample/Startup.cs)):
@@ -76,6 +76,7 @@ Prepare this project to use Forge:
 ```xml
 "env": {
     "ASPNETCORE_ENVIRONMENT": "Development",
+    "ASPNETCORE_URLS" : "http://localhost:3000",
     "FORGE_CLIENT_ID": "your client id here",
     "FORGE_CLIENT_SECRET": "your client secret here",
     "FORGE_CALLBACK_URL": "http://localhost:3000/api/forge/callback/oauth"
@@ -85,6 +86,18 @@ Prepare this project to use Forge:
 Now the project is ready for Forge! See [Controllers/OAuthController.cs](ForgeSample/Controllers/OAuthController.cs) for an example (2-legged token). With this controller, the `/api/forge/oauth/token` should also work (localhost and live on Heroku). Static files should be placed on `wwwroot` folder.
 
 ## Tips & Tricks
+
+### Enable "Deploy to Heroku" button
+
+Create a `app.json` and specify the buildpack for .NET Core:
+
+```json
+"buildpacks": [
+  {
+    "url": "https://github.com/jincod/dotnetcore-buildpack.git"
+  }
+]
+```
 
 ### Open browser (or new tab) on debug
 
